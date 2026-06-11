@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Vasco Pereira — Style Selector</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    body { font-family: 'Inter', system-ui, sans-serif; background: #0a0a0a; color: #f0f0f0; -webkit-font-smoothing: antialiased; min-height: 100vh; padding: 60px 48px; }
+    h1 { font-size: 13px; font-weight: 500; letter-spacing: 0.12em; text-transform: uppercase; color: #666; margin-bottom: 48px; }
+    h1 span { color: #f0f0f0; }
+    .grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(340px, 1fr)); gap: 2px; }
+    .card { position: relative; aspect-ratio: 16/10; overflow: hidden; background: #111; cursor: pointer; }
+    .card-preview { position: absolute; inset: 0; }
+    .card-preview iframe { width: 200%; height: 200%; transform: scale(0.5); transform-origin: top left; border: none; pointer-events: none; }
+    .card-overlay { position: absolute; inset: 0; background: linear-gradient(to top, rgba(0,0,0,0.9) 0%, rgba(0,0,0,0.1) 60%); transition: background 0.3s; }
+    .card:hover .card-overlay { background: linear-gradient(to top, rgba(0,0,0,0.95) 0%, rgba(0,0,0,0.2) 60%); }
+    .card-info { position: absolute; bottom: 0; left: 0; right: 0; padding: 24px 28px; }
+    .card-num { font-size: 10px; font-weight: 500; letter-spacing: 0.14em; text-transform: uppercase; color: #666; margin-bottom: 6px; }
+    .card-title { font-size: 20px; font-weight: 600; letter-spacing: -0.02em; margin-bottom: 6px; }
+    .card-desc { font-size: 12px; color: rgba(240,240,240,0.5); line-height: 1.5; margin-bottom: 18px; }
+    .card-link { display: inline-flex; align-items: center; gap: 6px; font-size: 12px; font-weight: 500; letter-spacing: 0.06em; text-decoration: none; padding: 8px 18px; border-radius: 2px; transition: opacity 0.2s; }
+    .card-link:hover { opacity: 0.8; }
+    .c1 .card-link { background: #141412; color: #f9f7f4; }
+    .c2 .card-link { background: #c4a35a; color: #07060b; }
+    .c3 .card-link { background: #b5622a; color: #f0e8d8; }
+    .c4 .card-link { background: #d81f26; color: #fff; }
+    .c5 .card-link { background: #00e8c6; color: #040408; }
+    /* Color strip at top */
+    .card::before { content: ''; position: absolute; top: 0; left: 0; right: 0; height: 3px; z-index: 3; }
+    .c1::before { background: #141412; }
+    .c2::before { background: #c4a35a; }
+    .c3::before { background: #b5622a; }
+    .c4::before { background: #d81f26; }
+    .c5::before { background: #00e8c6; }
+    /* Fallback coloured bg when iframe is loading */
+    .bg-c1 { background: #f9f7f4; }
+    .bg-c2 { background: #07060b; }
+    .bg-c3 { background: #f0e8d8; }
+    .bg-c4 { background: #fff; }
+    .bg-c5 { background: #040408; }
+    footer-note { display: block; margin-top: 40px; font-size: 11px; color: #444; text-align: center; }
+  </style>
+</head>
+<body>
+  <h1>vascopereira.com · <span>Style Explorer</span></h1>
+  <div class="grid">
+    <div class="card c1">
+      <div class="card-preview bg-c1"><iframe src="style-editorial.html" loading="lazy" title="Editorial White"></iframe></div>
+      <div class="card-overlay"></div>
+      <div class="card-info">
+        <p class="card-num">Style 01</p>
+        <h2 class="card-title">Editorial White</h2>
+        <p class="card-desc">Magazine editorial · Cormorant Garant serif · Split hero · Generous whitespace</p>
+        <a href="style-editorial.html" class="card-link">Open →</a>
+      </div>
+    </div>
+    <div class="card c2">
+      <div class="card-preview bg-c2"><iframe src="style-luxury.html" loading="lazy" title="Luxury Cinematic"></iframe></div>
+      <div class="card-overlay"></div>
+      <div class="card-info">
+        <p class="card-num">Style 02</p>
+        <h2 class="card-title">Luxury Cinematic</h2>
+        <p class="card-desc">Deep dark · Playfair Display · Gold accents · Full-bleed hero</p>
+        <a href="style-luxury.html" class="card-link">Open →</a>
+      </div>
+    </div>
+    <div class="card c3">
+      <div class="card-preview bg-c3"><iframe src="style-analog.html" loading="lazy" title="Analog Film"></iframe></div>
+      <div class="card-overlay"></div>
+      <div class="card-info">
+        <p class="card-num">Style 03</p>
+        <h2 class="card-title">Analog / Film</h2>
+        <p class="card-desc">Warm parchment · Grain texture · Libre Baskerville · Film-border grid</p>
+        <a href="style-analog.html" class="card-link">Open →</a>
+      </div>
+    </div>
+    <div class="card c4">
+      <div class="card-preview bg-c4"><iframe src="style-bauhaus.html" loading="lazy" title="Swiss Bauhaus"></iframe></div>
+      <div class="card-overlay"></div>
+      <div class="card-info">
+        <p class="card-num">Style 04</p>
+        <h2 class="card-title">Swiss / Bauhaus</h2>
+        <p class="card-desc">Black · white · red · Space Grotesk · Bold grid · B&W photography</p>
+        <a href="style-bauhaus.html" class="card-link">Open →</a>
+      </div>
+    </div>
+    <div class="card c5">
+      <div class="card-preview bg-c5"><iframe src="style-modern.html" loading="lazy" title="Dark Modern"></iframe></div>
+      <div class="card-overlay"></div>
+      <div class="card-info">
+        <p class="card-num">Style 05</p>
+        <h2 class="card-title">Dark Modern</h2>
+        <p class="card-desc">Near-black · Electric teal · Syne font · Noise texture · Awwwards-inspired</p>
+        <a href="style-modern.html" class="card-link">Open →</a>
+      </div>
+    </div>
+    <div class="card" style="background:#050505;display:flex;align-items:center;justify-content:center;cursor:default;">
+      <div style="text-align:center;padding:32px;">
+        <p style="font-size:11px;color:#333;letter-spacing:0.12em;text-transform:uppercase;margin-bottom:12px;">Also available</p>
+        <a href="index.html" style="font-size:14px;color:#555;text-decoration:none;letter-spacing:0.04em;">index.html — Apple Dark (original)</a>
+      </div>
+    </div>
+  </div>
+  <footer-note>Open each style in a new tab to preview at full size.</footer-note>
+</body>
+</html>

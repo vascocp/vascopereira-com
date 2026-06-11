@@ -1,0 +1,288 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Photography Workshop — Vasco Pereira</title>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Helvetica Neue', sans-serif;
+      background: #fff;
+      color: #111;
+      width: 210mm;
+      min-height: 297mm;
+      margin: 0 auto;
+      -webkit-print-color-adjust: exact;
+      print-color-adjust: exact;
+    }
+
+    /* ── HERO ── */
+    .hero {
+      position: relative;
+      height: 64mm;
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-end;
+      padding: 18px 28px;
+    }
+    .hero-photo {
+      position: absolute; inset: 0;
+      background: url('Photos/workshop/L1070977.jpg') center center / cover no-repeat;
+    }
+    .hero-overlay {
+      position: absolute; inset: 0;
+      background: linear-gradient(to bottom, rgba(0,0,0,0.2) 0%, rgba(0,0,0,0.75) 100%);
+    }
+    .hero-content { position: relative; z-index: 2; color: #fff; }
+    .hero-eyebrow {
+      font-size: 8px; font-weight: 600; letter-spacing: 0.18em;
+      text-transform: uppercase; opacity: 0.7; margin-bottom: 5px;
+    }
+    .hero-title {
+      font-size: 22px; font-weight: 700; letter-spacing: -0.03em;
+      line-height: 1.1; margin-bottom: 4px;
+    }
+    .hero-sub {
+      font-size: 10.5px; font-weight: 400; opacity: 0.8; letter-spacing: 0.01em;
+    }
+    .hero-author {
+      position: absolute; top: 14px; right: 20px; z-index: 2;
+      color: #fff; text-align: right;
+    }
+    .hero-author span {
+      display: block; font-size: 11px; font-weight: 600; letter-spacing: -0.01em;
+    }
+    .hero-author small { font-size: 9px; opacity: 0.65; }
+
+    /* ── META TAGS ── */
+    .meta-row {
+      display: flex; gap: 0;
+      border-bottom: 1px solid #eee;
+    }
+    .meta-item {
+      flex: 1; padding: 7px 14px;
+      border-right: 1px solid #eee;
+      display: flex; flex-direction: column; gap: 1px;
+    }
+    .meta-item:last-child { border-right: none; }
+    .meta-label { font-size: 7px; font-weight: 600; letter-spacing: 0.12em; text-transform: uppercase; color: #999; }
+    .meta-value { font-size: 10.5px; font-weight: 600; color: #111; }
+
+    /* ── INTRO ── */
+    .intro {
+      padding: 10px 28px 9px;
+      border-bottom: 1px solid #eee;
+    }
+    .intro p {
+      font-size: 10px; line-height: 1.55; color: #444;
+      max-width: 100%;
+    }
+
+    /* ── PROGRAMME ── */
+    .programme { padding: 0 28px 14px; }
+    .programme-title {
+      font-size: 8px; font-weight: 700; letter-spacing: 0.14em;
+      text-transform: uppercase; color: #999;
+      padding: 8px 0 7px;
+      border-bottom: 1px solid #eee; margin-bottom: 0;
+    }
+
+    .block {
+      display: grid;
+      grid-template-columns: 46px 8px 1fr;
+      gap: 0 10px;
+      padding: 7px 0;
+      border-bottom: 1px solid #f2f2f2;
+      align-items: start;
+    }
+    .block:last-child { border-bottom: none; }
+
+    .block-time {
+      font-size: 8px; font-weight: 600; color: #999;
+      letter-spacing: 0.02em; padding-top: 2px; line-height: 1.3;
+      text-align: right;
+    }
+    .block-dot {
+      display: flex; flex-direction: column; align-items: center;
+      padding-top: 3px;
+    }
+    .dot {
+      width: 7px; height: 7px; border-radius: 50%;
+      flex-shrink: 0;
+    }
+    .dot.indoor  { background: #2997ff; }
+    .dot.outdoor { background: #34c759; }
+    .dot.break   { background: #ff9f0a; }
+    .line {
+      width: 1px; background: #eee;
+      flex: 1; min-height: 12px; margin-top: 3px;
+    }
+
+    .block-body { padding-bottom: 2px; }
+    .block-mode {
+      display: inline-block;
+      font-size: 7px; font-weight: 700; letter-spacing: 0.1em;
+      text-transform: uppercase; padding: 1px 6px; border-radius: 20px;
+      margin-bottom: 2px;
+    }
+    .block-mode.indoor  { background: #e8f4ff; color: #0071d4; }
+    .block-mode.outdoor { background: #e8f9ee; color: #1d9641; }
+    .block-mode.break   { background: #fff5e5; color: #c07000; }
+
+    .block-title { font-size: 10.5px; font-weight: 600; color: #111; margin-bottom: 2px; }
+    .block-desc  { font-size: 9.5px; color: #666; line-height: 1.5; }
+    .block-discussion {
+      margin-top: 3px; padding: 3px 7px;
+      background: #f8f8f8; border-radius: 4px;
+      font-size: 8.5px; color: #888; font-style: italic; line-height: 1.4;
+    }
+
+    /* ── FOOTER ── */
+    .footer {
+      border-top: 1px solid #eee;
+      padding: 8px 28px;
+      display: flex; justify-content: space-between; align-items: center;
+    }
+    .footer-left { font-size: 9px; color: #999; }
+    .footer-left strong { color: #111; font-weight: 600; }
+    .footer-right { font-size: 9px; color: #999; text-align: right; }
+    .footer-right a { color: #0071d4; text-decoration: none; }
+
+    @media print {
+      body { width: 210mm; }
+      @page { size: A4; margin: 0; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- HERO -->
+  <div class="hero">
+    <div class="hero-photo"></div>
+    <div class="hero-overlay"></div>
+    <div class="hero-author">
+      <span>Vasco Pereira</span>
+      <small>Photographer · Lisbon</small>
+    </div>
+    <div class="hero-content">
+      <p class="hero-eyebrow">Full-day workshop</p>
+      <h1 class="hero-title">Learn to see<br>before you shoot.</h1>
+      <p class="hero-sub">An immersive day of theory, street practice, and honest conversation about what makes an image matter.</p>
+    </div>
+  </div>
+
+  <!-- META -->
+  <div class="meta-row">
+    <div class="meta-item">
+      <span class="meta-label">Duration</span>
+      <span class="meta-value">Full day · 9h–18h</span>
+    </div>
+    <div class="meta-item">
+      <span class="meta-label">Group size</span>
+      <span class="meta-value">Max 8 people</span>
+    </div>
+    <div class="meta-item">
+      <span class="meta-label">Level</span>
+      <span class="meta-value">All levels</span>
+    </div>
+    <div class="meta-item">
+      <span class="meta-label">Location</span>
+      <span class="meta-value">Lisbon, Portugal</span>
+    </div>
+  </div>
+
+  <!-- INTRO -->
+  <div class="intro">
+    <p>Equal parts theory, street practice, and honest conversation. We spend the day moving between classroom and city — questioning why we press the shutter, learning to read light, approaching strangers, and finding the frame before the moment disappears. Each participant leaves with individual written feedback and a clearer sense of their own photographic voice.</p>
+  </div>
+
+  <!-- PROGRAMME -->
+  <div class="programme">
+    <p class="programme-title">Full-day programme</p>
+
+    <div class="block">
+      <div class="block-time">09:00<br>10:30</div>
+      <div class="block-dot"><div class="dot indoor"></div><div class="line"></div></div>
+      <div class="block-body">
+        <span class="block-mode indoor">Indoor</span>
+        <div class="block-title">The Art of Seeing</div>
+        <div class="block-desc">Theory session unpacking light, composition, and emotional intent — through Vasco's own images and references from masters like Cartier-Bresson and Saul Leiter.</div>
+        <div class="block-discussion">Discussion: What drew you to photography? What's the image you've always wanted to make?</div>
+      </div>
+    </div>
+
+    <div class="block">
+      <div class="block-time">10:45<br>12:30</div>
+      <div class="block-dot"><div class="dot outdoor"></div><div class="line"></div></div>
+      <div class="block-body">
+        <span class="block-mode outdoor">Outdoor</span>
+        <div class="block-title">Street Walk I — The Decisive Frame</div>
+        <div class="block-desc">Finding the frame before pressing the shutter — geometry, light, human presence. Vasco walks alongside, pointing out missed moments and hidden compositions in real time.</div>
+        <div class="block-discussion">Discussion: Group review of the morning's best 3 shots — why did you press the shutter at that exact moment?</div>
+      </div>
+    </div>
+
+    <div class="block">
+      <div class="block-time">12:30<br>13:30</div>
+      <div class="block-dot"><div class="dot break"></div><div class="line"></div></div>
+      <div class="block-body">
+        <span class="block-mode break">Lunch</span>
+        <div class="block-title">Lunch &amp; Informal Edit Review</div>
+        <div class="block-desc">Participants share their morning images over lunch. Vasco comments on the edit selection — not just the images, but the instinct behind what people chose to keep.</div>
+      </div>
+    </div>
+
+    <div class="block">
+      <div class="block-time">13:30<br>15:00</div>
+      <div class="block-dot"><div class="dot indoor"></div><div class="line"></div></div>
+      <div class="block-body">
+        <span class="block-mode indoor">Indoor</span>
+        <div class="block-title">Light, Emotion &amp; Post-processing</div>
+        <div class="block-desc">How light shapes mood — from harsh midday sun to soft window light. Vasco's editing philosophy: minimal intervention, maximum honesty. Participants work on their morning shots with guidance.</div>
+        <div class="block-discussion">Discussion: When does editing enhance a photo — and when does it betray the moment?</div>
+      </div>
+    </div>
+
+    <div class="block">
+      <div class="block-time">15:15<br>17:15</div>
+      <div class="block-dot"><div class="dot outdoor"></div><div class="line"></div></div>
+      <div class="block-body">
+        <span class="block-mode outdoor">Outdoor</span>
+        <div class="block-title">Street Walk II — Golden Hour &amp; Portraits</div>
+        <div class="block-desc">Portraits and human connection — approaching strangers, building trust in seconds, capturing the unguarded moment. Experimentation with motion blur and long exposure.</div>
+        <div class="block-discussion">Discussion: How did it feel to photograph a stranger? What did their face tell you that you didn't expect?</div>
+      </div>
+    </div>
+
+    <div class="block">
+      <div class="block-time">17:30<br>18:00</div>
+      <div class="block-dot"><div class="dot indoor"></div></div>
+      <div class="block-body">
+        <span class="block-mode indoor">Indoor</span>
+        <div class="block-title">Final Presentation &amp; Feedback</div>
+        <div class="block-desc">Each participant presents their one image of the day. Vasco gives individual written feedback to take home. Open conversation about each person's next step.</div>
+        <div class="block-discussion">Discussion: What did today change in how you see?</div>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- FOOTER -->
+  <div class="footer">
+    <div class="footer-left">
+      <strong>Vasco Pereira</strong> · Photography Workshop<br>
+      "Each image an emotional storytelling."
+    </div>
+    <div class="footer-right">
+      <a href="mailto:mail@vascopereira.com">mail@vascopereira.com</a><br>
+      vascopereira.com
+    </div>
+  </div>
+
+</body>
+</html>

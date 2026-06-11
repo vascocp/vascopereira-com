@@ -1,0 +1,370 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Vasco Pereira — Bauhaus</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    :root {
+      --bg: #ffffff; --text: #000000; --muted: #666666;
+      --red: #d81f26; --yellow: #f5c518; --surface: #f4f4f4;
+      --border: #000000;
+      --sans: 'Space Grotesk', system-ui, sans-serif;
+    }
+    html { scroll-behavior: smooth; }
+    body { font-family: var(--sans); background: var(--bg); color: var(--text); -webkit-font-smoothing: antialiased; overflow-x: hidden; }
+
+    /* NAV */
+    nav {
+      position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+      height: 52px; background: var(--text);
+      display: flex; align-items: center; justify-content: space-between; padding: 0 40px;
+    }
+    nav .logo { font-size: 16px; font-weight: 700; letter-spacing: -0.01em; color: var(--bg); text-decoration: none; text-transform: uppercase; }
+    nav ul { display: flex; gap: 0; list-style: none; }
+    nav ul li { border-left: 1px solid rgba(255,255,255,0.15); }
+    nav ul a { display: block; padding: 0 20px; font-size: 11px; font-weight: 500; letter-spacing: 0.1em; text-transform: uppercase; color: rgba(255,255,255,0.55); text-decoration: none; line-height: 52px; transition: color 0.15s; }
+    nav ul a:hover { color: #fff; }
+    nav .nav-cta { font-size: 11px; font-weight: 600; letter-spacing: 0.1em; text-transform: uppercase; color: var(--bg); text-decoration: none; background: var(--red); padding: 10px 20px; transition: opacity 0.15s; }
+    nav .nav-cta:hover { opacity: 0.85; }
+
+    /* HERO */
+    .hero {
+      min-height: 100vh; padding-top: 52px;
+      display: grid; grid-template-columns: 1fr 1fr;
+      border-bottom: 4px solid var(--text);
+    }
+    .hero-text {
+      display: flex; flex-direction: column; justify-content: space-between;
+      padding: 0; border-right: 4px solid var(--text);
+    }
+    .hero-top { padding: 60px 56px 0; }
+    .hero-eyebrow { font-size: 11px; font-weight: 500; letter-spacing: 0.16em; text-transform: uppercase; color: var(--muted); margin-bottom: 36px; border-left: 4px solid var(--red); padding-left: 14px; }
+    .hero h1 { font-size: clamp(72px, 7.5vw, 128px); font-weight: 700; line-height: 0.88; letter-spacing: -0.04em; color: var(--text); margin-bottom: 0; }
+    .hero h1 span.red { color: var(--red); }
+    .hero-bottom { border-top: 4px solid var(--text); padding: 40px 56px; }
+    .hero p { font-size: 15px; font-weight: 300; line-height: 1.7; color: var(--muted); max-width: 380px; margin-bottom: 36px; }
+    .hero-actions { display: flex; gap: 0; }
+    .btn-primary { display: inline-flex; align-items: center; gap: 8px; padding: 16px 32px; background: var(--text); color: var(--bg); font-size: 12px; font-weight: 600; letter-spacing: 0.1em; text-transform: uppercase; text-decoration: none; transition: background 0.15s; border: 3px solid var(--text); }
+    .btn-primary:hover { background: var(--red); border-color: var(--red); }
+    .btn-ghost { display: inline-flex; align-items: center; gap: 8px; padding: 16px 32px; background: transparent; color: var(--text); font-size: 12px; font-weight: 600; letter-spacing: 0.1em; text-transform: uppercase; text-decoration: none; border: 3px solid var(--text); margin-left: -3px; transition: all 0.15s; }
+    .btn-ghost:hover { background: var(--text); color: var(--bg); }
+    .hero-image { position: relative; overflow: hidden; }
+    .hero-image img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; object-position: center 20%; filter: grayscale(100%) contrast(1.1); }
+    .hero-image::after { content: ''; position: absolute; inset: 0; background: rgba(0,0,0,0.08); mix-blend-mode: multiply; }
+    /* Red corner block */
+    .hero-image-tag { position: absolute; bottom: 0; right: 0; background: var(--red); color: #fff; font-size: 11px; font-weight: 600; letter-spacing: 0.1em; text-transform: uppercase; padding: 14px 20px; z-index: 2; }
+
+    /* NUMBER SECTIONS */
+    .section-num { font-size: 120px; font-weight: 700; color: rgba(0,0,0,0.06); line-height: 1; letter-spacing: -0.04em; position: absolute; top: -20px; right: 40px; pointer-events: none; user-select: none; }
+
+    /* SECTIONS */
+    section { padding: 100px 56px; position: relative; }
+    .section-label { font-size: 10px; font-weight: 600; letter-spacing: 0.22em; text-transform: uppercase; color: var(--red); margin-bottom: 16px; }
+    .section-title { font-size: clamp(36px, 4vw, 60px); font-weight: 700; letter-spacing: -0.03em; line-height: 1; margin-bottom: 20px; }
+    .section-body { font-size: 15px; font-weight: 300; color: var(--muted); line-height: 1.8; max-width: 500px; }
+
+    /* ABOUT */
+    #about { background: var(--surface); border-top: 4px solid var(--text); border-bottom: 4px solid var(--text); padding: 0; overflow: hidden; }
+    .about-inner { display: grid; grid-template-columns: 3fr 5fr; min-height: 72vh; }
+    .about-image { position: relative; overflow: hidden; border-right: 4px solid var(--text); }
+    .about-image img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; object-position: center top; filter: grayscale(100%) contrast(1.08); }
+    .about-content { padding: 80px 60px; position: relative; }
+    .about-quote { margin-top: 40px; padding: 24px 28px; background: var(--yellow); border-left: 6px solid var(--text); }
+    .about-quote p { font-size: 18px; font-weight: 700; color: var(--text); line-height: 1.5; letter-spacing: -0.01em; }
+
+    /* WORK */
+    #work { background: var(--bg); border-bottom: 4px solid var(--text); padding: 80px 56px; overflow: hidden; }
+    .work-header { margin-bottom: 56px; display: grid; grid-template-columns: auto 1fr; gap: 40px; align-items: center; }
+    .work-header-titles { }
+    .work-header-line { height: 4px; background: var(--text); }
+    .categories { display: flex; flex-wrap: wrap; gap: 0; margin-bottom: 52px; border: 3px solid var(--text); }
+    .cat-pill { padding: 10px 18px; border: none; border-right: 3px solid var(--text); font-family: var(--sans); font-size: 11px; font-weight: 600; letter-spacing: 0.08em; text-transform: uppercase; color: var(--muted); cursor: pointer; transition: all 0.15s; background: transparent; }
+    .cat-pill:last-child { border-right: none; }
+    .cat-pill.active, .cat-pill:hover { background: var(--text); color: var(--bg); }
+    .portfolio-quote { margin-bottom: 40px; min-height: 52px; display: flex; align-items: center; padding-left: 20px; border-left: 4px solid var(--yellow); }
+    .portfolio-quote-text { font-size: clamp(15px, 2vw, 20px); font-weight: 400; color: var(--muted); line-height: 1.5; transition: opacity 0.3s, transform 0.3s; }
+    .portfolio-quote-text.fade-out { opacity: 0; transform: translateY(5px); }
+    .grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 4px; outline: 4px solid var(--text); }
+    .grid-item { aspect-ratio: 4/3; background: var(--surface); position: relative; overflow: hidden; cursor: zoom-in; }
+    .grid-item.grid-wide { grid-column: span 2; aspect-ratio: 16/7; }
+    .grid-item.hidden { display: none; }
+    .grid-photo { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; transition: transform 0.5s ease; filter: grayscale(100%) contrast(1.05); }
+    .grid-item:hover .grid-photo { transform: scale(1.04); filter: grayscale(20%) contrast(1.03); }
+    .grid-item-overlay { position: absolute; inset: 0; background: rgba(216,31,38,0); transition: background 0.3s; }
+    .grid-item:hover .grid-item-overlay { background: rgba(216,31,38,0.12); }
+    .grid-item-label { position: absolute; bottom: 0; left: 0; right: 0; padding: 16px 20px; background: var(--text); transform: translateY(100%); transition: transform 0.3s cubic-bezier(0.25,0.46,0.45,0.94); }
+    .grid-item:hover .grid-item-label { transform: translateY(0); }
+    .grid-item-label h3 { font-size: 16px; font-weight: 700; color: var(--bg); letter-spacing: -0.01em; text-transform: uppercase; }
+    .grid-item-label p { font-size: 10px; letter-spacing: 0.1em; text-transform: uppercase; color: rgba(255,255,255,0.5); margin-top: 4px; font-weight: 500; }
+
+    /* PHILOSOPHY */
+    #philosophy { background: var(--red); border-bottom: 4px solid var(--text); padding: 120px 56px; text-align: left; overflow: hidden; }
+    .philosophy-inner { max-width: 900px; position: relative; }
+    #philosophy .section-label { color: rgba(255,255,255,0.6); }
+    .philosophy-quote { font-size: clamp(28px, 4.5vw, 64px); font-weight: 700; letter-spacing: -0.03em; line-height: 1.05; color: #fff; margin: 24px 0 36px; }
+    .philosophy-quote em { color: var(--yellow); font-style: normal; text-decoration: underline; text-underline-offset: 4px; }
+    #philosophy .section-body { color: rgba(255,255,255,0.65); max-width: 560px; }
+
+    /* WORKSHOP */
+    #workshop { background: var(--surface); border-bottom: 4px solid var(--text); padding: 0; }
+    .workshop-hero { position: relative; overflow: hidden; padding: 120px 56px; background: var(--text); border-bottom: 4px solid var(--text); }
+    .workshop-hero::before { content: ''; position: absolute; inset: 0; z-index: 0; background: url('Photos/workshop/L1070977.jpg') center/cover no-repeat; opacity: 0.18; filter: grayscale(100%); }
+    .workshop-hero-inner { position: relative; z-index: 2; max-width: 720px; }
+    .workshop-hero .section-label { color: var(--yellow); }
+    .workshop-hero .section-title { color: var(--bg); }
+    .workshop-hero .section-body { color: rgba(255,255,255,0.55); }
+    .workshop-inner { padding: 0 56px 90px; }
+    .workshop-tags { display: flex; flex-wrap: wrap; gap: 0; margin: 28px 0 40px; border: 3px solid rgba(255,255,255,0.2); width: fit-content; }
+    .ws-tag { font-size: 10px; font-weight: 600; letter-spacing: 0.1em; text-transform: uppercase; padding: 7px 16px; border-right: 3px solid rgba(255,255,255,0.2); color: rgba(255,255,255,0.5); }
+    .ws-tag:last-child { border-right: none; }
+    .ws-btn-row { display: flex; gap: 0; flex-wrap: wrap; }
+    .ws-toggle { display: inline-flex; align-items: center; gap: 8px; cursor: pointer; border: 3px solid rgba(255,255,255,0.4); background: transparent; font-family: var(--sans); font-size: 11px; font-weight: 600; letter-spacing: 0.1em; text-transform: uppercase; color: var(--bg); padding: 12px 22px; transition: all 0.15s; }
+    .ws-toggle:hover { background: var(--bg); color: var(--text); }
+    .ws-dl { display: inline-flex; align-items: center; gap: 8px; border: 3px solid rgba(255,255,255,0.2); border-left: none; padding: 12px 22px; font-family: var(--sans); font-size: 11px; font-weight: 600; letter-spacing: 0.1em; text-transform: uppercase; color: rgba(255,255,255,0.5); text-decoration: none; transition: all 0.15s; }
+    .ws-dl:hover { color: var(--bg); border-color: rgba(255,255,255,0.5); }
+    .ws-programme { overflow: hidden; max-height: 0; transition: max-height 0.6s cubic-bezier(0.4,0,0.2,1); }
+    .ws-programme.open { max-height: 4000px; }
+    .ws-prog-inner { padding: 52px 0; display: flex; flex-direction: column; }
+    .ws-block { padding: 28px 0; border-top: 3px solid var(--border); display: grid; grid-template-columns: 160px 1fr; gap: 32px; }
+    .ws-block-left { }
+    .ws-block-header { display: flex; flex-direction: column; gap: 8px; margin-bottom: 0; }
+    .ws-time { font-family: monospace; font-size: 12px; font-weight: 600; color: var(--muted); letter-spacing: 0.04em; }
+    .ws-mode { font-size: 10px; font-weight: 600; letter-spacing: 0.1em; text-transform: uppercase; padding: 4px 10px; width: fit-content; }
+    .ws-mode.indoor { background: var(--text); color: var(--bg); }
+    .ws-mode.outdoor { background: #1a7a1a; color: #fff; }
+    .ws-mode.break { background: var(--yellow); color: var(--text); }
+    .ws-block-title { font-size: 22px; font-weight: 700; margin-bottom: 10px; letter-spacing: -0.02em; }
+    .ws-block-desc { font-size: 14px; font-weight: 300; color: var(--muted); line-height: 1.8; margin-bottom: 14px; }
+    .ws-discussion { display: flex; align-items: flex-start; gap: 8px; font-size: 13px; color: rgba(0,0,0,0.35); line-height: 1.6; padding-top: 14px; border-top: 2px solid rgba(0,0,0,0.1); }
+    .ws-discussion em { font-style: italic; color: var(--muted); }
+
+    /* CONTACT */
+    #contact { background: var(--bg); border-bottom: 4px solid var(--text); padding: 100px 56px; }
+    .contact-inner { max-width: 640px; }
+    .social-links { display: flex; flex-wrap: wrap; gap: 0; margin-top: 44px; border: 3px solid var(--text); width: fit-content; }
+    .social-link { display: inline-flex; align-items: center; gap: 8px; padding: 12px 20px; border-right: 3px solid var(--text); color: var(--text); text-decoration: none; font-size: 11px; font-weight: 600; letter-spacing: 0.08em; text-transform: uppercase; transition: all 0.15s; }
+    .social-link:last-child { border-right: none; }
+    .social-link:hover { background: var(--text); color: var(--bg); }
+
+    /* LIGHTBOX */
+    .lightbox { display: none; position: fixed; inset: 0; z-index: 1000; background: rgba(0,0,0,0.96); align-items: center; justify-content: center; cursor: zoom-out; }
+    .lightbox.open { display: flex; }
+    .lightbox-img { max-width: 92vw; max-height: 92vh; object-fit: contain; outline: 4px solid #fff; animation: lb-in 0.2s ease; }
+    @keyframes lb-in { from { opacity: 0; transform: scale(0.97); } to { opacity: 1; transform: scale(1); } }
+    .lightbox-close { position: fixed; top: 20px; right: 28px; background: var(--red); border: none; cursor: pointer; color: #fff; font-size: 20px; line-height: 1; width: 44px; height: 44px; display: flex; align-items: center; justify-content: center; font-weight: 700; transition: opacity 0.15s; }
+    .lightbox-close:hover { opacity: 0.8; }
+    .lightbox-caption { position: fixed; bottom: 28px; left: 50%; transform: translateX(-50%); font-size: 12px; font-weight: 600; letter-spacing: 0.12em; text-transform: uppercase; color: rgba(255,255,255,0.4); pointer-events: none; }
+
+    /* FOOTER */
+    footer { padding: 24px 56px; background: var(--text); display: flex; justify-content: space-between; align-items: center; }
+    footer p { font-size: 11px; color: rgba(255,255,255,0.4); font-weight: 500; letter-spacing: 0.08em; text-transform: uppercase; }
+
+    /* RESPONSIVE */
+    @media (max-width: 900px) {
+      nav { padding: 0 20px; } nav ul { display: none; }
+      .hero { grid-template-columns: 1fr; }
+      .hero-image { height: 55vw; position: relative; }
+      .hero-image img { position: absolute; }
+      .hero-text { border-right: none; border-bottom: 4px solid var(--text); }
+      .hero-top { padding: 48px 32px 0; }
+      .hero-bottom { padding: 32px; }
+      .about-inner { grid-template-columns: 1fr; }
+      .about-image { height: 60vw; position: relative; border-right: none; border-bottom: 4px solid var(--text); }
+      .about-image img { position: absolute; }
+      .about-content { padding: 52px 32px; }
+      section, #work, #contact { padding-left: 32px; padding-right: 32px; }
+      .workshop-hero { padding: 80px 32px; }
+      .workshop-inner { padding: 0 32px 72px; }
+      .ws-block { grid-template-columns: 1fr; gap: 12px; }
+      footer { padding: 20px 32px; }
+      .social-links { flex-wrap: wrap; }
+      .social-link { border-right: 3px solid var(--text); border-bottom: 3px solid transparent; }
+    }
+    @media (max-width: 600px) {
+      .hero-top { padding: 40px 24px 0; }
+      .hero h1 { font-size: 64px; }
+      .hero-bottom { padding: 28px 24px; }
+      .hero-actions { flex-direction: column; gap: 0; }
+      .btn-ghost { margin-left: 0; margin-top: -3px; }
+      .grid { grid-template-columns: 1fr 1fr; gap: 3px; }
+      .grid-item.grid-wide { grid-column: span 2; aspect-ratio: 16/9; }
+      .grid-item { aspect-ratio: 1; }
+      .grid-item-label { transform: translateY(0); }
+      section, #work, #contact { padding: 60px 24px; }
+      .workshop-hero { padding: 64px 24px; }
+      .workshop-inner { padding: 0 24px 56px; }
+      footer { padding: 20px 24px; flex-direction: column; gap: 8px; text-align: center; }
+      .categories { overflow-x: auto; flex-wrap: nowrap; border: 3px solid var(--text); }
+    }
+  </style>
+</head>
+<body>
+
+<nav>
+  <a class="logo" href="#">Vasco Pereira</a>
+  <ul>
+    <li><a href="#about">About</a></li>
+    <li><a href="#work">Work</a></li>
+    <li><a href="#workshop">Workshop</a></li>
+    <li><a href="#contact">Contact</a></li>
+  </ul>
+  <a class="nav-cta" href="mailto:mail@vascopereira.com">Get in touch</a>
+</nav>
+
+<section class="hero">
+  <div class="hero-text">
+    <div class="hero-top">
+      <p class="hero-eyebrow">Photographer &amp; Computer Engineer</p>
+      <h1>Light.<br>Life.<br>Mo<span class="red">—</span><br>ments.</h1>
+    </div>
+    <div class="hero-bottom">
+      <p>Vasco Pereira — capturing the world through a lens, one frame at a time. From nature to streets, from people to souls, exploring the beauty in the little moments.</p>
+      <div class="hero-actions">
+        <a href="#work" class="btn-primary">Explore Work</a>
+        <a href="#about" class="btn-ghost">About Vasco</a>
+      </div>
+    </div>
+  </div>
+  <div class="hero-image">
+    <img src="Photos/hero/L1008278.jpg" alt="" />
+    <span class="hero-image-tag">001 — 2026</span>
+  </div>
+</section>
+
+<section id="about">
+  <div class="about-inner">
+    <div class="about-image"><img src="Photos/about/IMG_4327.jpg" alt="Vasco Pereira" /></div>
+    <div class="about-content">
+      <span class="section-num">01</span>
+      <p class="section-label">About</p>
+      <h2 class="section-title">Engineer by training.<br>Photographer<br>by soul.</h2>
+      <p class="section-body">Vasco Pereira is a computer engineer whose true passion lives behind the camera. Photography, for Vasco, isn't a job — it's a way of life. A pursuit of beauty in the everyday, the extraordinary, and everything in between.</p>
+      <div class="about-quote"><p>"Each image an emotional storytelling."</p></div>
+    </div>
+  </div>
+</section>
+
+<section id="work">
+  <div class="work-header">
+    <div class="work-header-titles">
+      <p class="section-label">Portfolio</p>
+      <h2 class="section-title">Every frame<br>tells a story.</h2>
+      <p class="section-body">A body of work spanning continents, emotions, cultures, street and moments.</p>
+    </div>
+    <div class="work-header-line"></div>
+  </div>
+  <div class="categories">
+    <button class="cat-pill active" data-filter="all">All</button>
+    <button class="cat-pill" data-filter="iceland">(n)iceland</button>
+    <button class="cat-pill" data-filter="chicago">Chicago</button>
+    <button class="cat-pill" data-filter="landscapes">Landscapes</button>
+    <button class="cat-pill" data-filter="weddings">Weddings</button>
+    <button class="cat-pill" data-filter="family">Family</button>
+    <button class="cat-pill" data-filter="stage">Stage</button>
+    <button class="cat-pill" data-filter="fineart">Fine Art</button>
+    <button class="cat-pill" data-filter="motion">Motion</button>
+    <button class="cat-pill" data-filter="kids">Kids</button>
+  </div>
+  <div class="portfolio-quote" id="portfolioQuote">
+    <p class="portfolio-quote-text" id="portfolioQuoteText">"Every photograph is a certificate of presence."</p>
+  </div>
+  <div class="grid">
+    <div class="grid-item grid-wide" data-cat="iceland"><img class="grid-photo" src="https://images.unsplash.com/photo-1531168556467-80aace0d0144?w=1200&q=80" alt="Iceland" /><div class="grid-item-overlay"></div><div class="grid-item-label"><h3>(n)iceland</h3><p>Skógafoss · Black Sand Beach · Spirit Church</p></div></div>
+    <div class="grid-item" data-cat="chicago"><img class="grid-photo" src="https://images.unsplash.com/photo-1477959858617-67f85cf4f1df?w=800&q=80" alt="Chicago on Film" /><div class="grid-item-overlay"></div><div class="grid-item-label"><h3>Chicago on Film</h3><p>Analog street documentary</p></div></div>
+    <div class="grid-item" data-cat="stage"><img class="grid-photo" src="https://images.unsplash.com/photo-1501386761578-eaa54b039571?w=800&q=80" alt="On Stage" /><div class="grid-item-overlay"></div><div class="grid-item-label"><h3>On Stage</h3><p>Live music &amp; performance</p></div></div>
+    <div class="grid-item" data-cat="weddings"><img class="grid-photo" src="https://images.unsplash.com/photo-1519741497674-611481863552?w=800&q=80" alt="Weddings" /><div class="grid-item-overlay"></div><div class="grid-item-label"><h3>Marry Me</h3><p>Wedding ceremonies &amp; celebrations</p></div></div>
+    <div class="grid-item" data-cat="landscapes"><img class="grid-photo" src="https://images.unsplash.com/photo-1507525428034-b723cf961d3e?w=800&q=80" alt="Scapes" /><div class="grid-item-overlay"></div><div class="grid-item-label"><h3>Scapes</h3><p>Lisbon · Alentejo · Azores</p></div></div>
+    <div class="grid-item" data-cat="family"><img class="grid-photo" src="https://images.unsplash.com/photo-1511895426328-dc8714191011?w=800&q=80" alt="Family" /><div class="grid-item-overlay"></div><div class="grid-item-label"><h3>Family</h3><p>Couple's Wombs · Newborns · Generations</p></div></div>
+    <div class="grid-item" data-cat="motion"><img class="grid-photo" src="https://images.unsplash.com/photo-1504609813442-a8924e83f76e?w=800&q=80" alt="Motion" /><div class="grid-item-overlay"></div><div class="grid-item-label"><h3>Motion</h3><p>Movement &amp; light experiments</p></div></div>
+    <div class="grid-item" data-cat="fineart"><img class="grid-photo" src="https://images.unsplash.com/photo-1465146344425-f00d5f5c8f07?w=800&q=80" alt="Fine Art" /><div class="grid-item-overlay"></div><div class="grid-item-label"><h3>Fine Art</h3><p>Artistic composition &amp; stills</p></div></div>
+    <div class="grid-item" data-cat="iceland"><img class="grid-photo" src="https://images.unsplash.com/photo-1516496636080-14fb876e029d?w=800&q=80" alt="Iceland 2" /><div class="grid-item-overlay"></div><div class="grid-item-label"><h3>(n)iceland</h3><p>Ice &amp; fire</p></div></div>
+    <div class="grid-item" data-cat="landscapes"><img class="grid-photo" src="https://images.unsplash.com/photo-1470770841072-f978cf4d019e?w=800&q=80" alt="Landscape 2" /><div class="grid-item-overlay"></div><div class="grid-item-label"><h3>Scapes</h3><p>Mountains &amp; light</p></div></div>
+    <div class="grid-item" data-cat="weddings"><img class="grid-photo" src="https://images.unsplash.com/photo-1529636798458-92182e662485?w=800&q=80" alt="Wedding 2" /><div class="grid-item-overlay"></div><div class="grid-item-label"><h3>Marry Me</h3><p>The first dance</p></div></div>
+    <div class="grid-item" data-cat="kids"><img class="grid-photo" src="Photos/kids/VCP_5199.jpg" alt="Kids" /><div class="grid-item-overlay"></div><div class="grid-item-label"><h3>Kids</h3><p>Genuine moments, pure emotion</p></div></div>
+    <div class="grid-item" data-cat="stage"><img class="grid-photo" src="https://images.unsplash.com/photo-1470229722913-7c0e2dbbafd3?w=800&q=80" alt="On Stage 2" /><div class="grid-item-overlay"></div><div class="grid-item-label"><h3>On Stage</h3><p>Crowd &amp; light</p></div></div>
+  </div>
+</section>
+
+<section id="philosophy">
+  <div class="philosophy-inner">
+    <span class="section-num" style="right:auto;left:auto;position:absolute;top:-20px;right:0">03</span>
+    <p class="section-label">Philosophy</p>
+    <p class="philosophy-quote">"Photography is not just a technique. It's a <em>way of seeing</em> — and a reason to keep looking."</p>
+    <p class="section-body">Every shutter click is a decision. Every frame, a commitment. Vasco believes in photography as a practice of presence — slowing down to notice what others miss.</p>
+  </div>
+</section>
+
+<section id="workshop">
+  <div class="workshop-hero">
+    <div class="workshop-hero-inner">
+      <p class="section-label">Workshop</p>
+      <h2 class="section-title">Learn to see<br>before you shoot.</h2>
+      <p class="section-body">A full-day immersive photography workshop — indoors and outdoors — led by Vasco Pereira. Equal parts theory, street practice, and honest conversation about what makes an image matter.</p>
+      <div class="workshop-tags">
+        <span class="ws-tag">Full day · 9h–18h</span><span class="ws-tag">Max 8 people</span><span class="ws-tag">All levels</span><span class="ws-tag">Lisbon</span>
+      </div>
+      <div class="ws-btn-row">
+        <button class="ws-toggle" id="wsToggle" aria-expanded="false">See the programme <svg id="wsChevron" width="12" height="12" viewBox="0 0 14 14" fill="none" style="transition:transform 0.3s;margin-left:4px"><path d="M3 5l4 4 4-4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+        <a href="workshop-program.pdf" download class="ws-dl"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg> Download</a>
+      </div>
+    </div>
+  </div>
+  <div class="workshop-inner">
+    <div class="ws-programme" id="wsProgramme">
+      <div class="ws-prog-inner">
+        <div class="ws-block"><div class="ws-block-left"><div class="ws-block-header"><span class="ws-time">09:00 – 10:30</span><span class="ws-mode indoor">Indoor</span></div></div><div><h3 class="ws-block-title">The Art of Seeing</h3><p class="ws-block-desc">We open with the hardest question in photography: what are you actually trying to say? Through Vasco's own images and references from masters like Cartier-Bresson and Saul Leiter, this session unpacks light, composition, and emotional intent — before a single shutter is pressed.</p><div class="ws-discussion"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>Discussion: <em>What drew you to photography? What's the image you've always wanted to make?</em></div></div></div>
+        <div class="ws-block"><div class="ws-block-left"><div class="ws-block-header"><span class="ws-time">10:45 – 12:30</span><span class="ws-mode outdoor">Outdoor</span></div></div><div><h3 class="ws-block-title">Street Walk I — The Decisive Frame</h3><p class="ws-block-desc">First time on the streets with one constraint: no zooming in post. Participants practice finding the frame before pressing the shutter — geometry, light, human presence.</p><div class="ws-discussion"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>Discussion: <em>Group review of the morning's best 3 shots per person. Why did you press the shutter at that exact moment?</em></div></div></div>
+        <div class="ws-block"><div class="ws-block-left"><div class="ws-block-header"><span class="ws-time">12:30 – 13:30</span><span class="ws-mode break">Lunch</span></div></div><div><h3 class="ws-block-title">Lunch &amp; Informal Edit Review</h3><p class="ws-block-desc">Participants share their morning images informally over lunch. Vasco comments on the edit selection — not just the images, but the instinct behind what people chose to keep.</p></div></div>
+        <div class="ws-block"><div class="ws-block-left"><div class="ws-block-header"><span class="ws-time">13:30 – 15:00</span><span class="ws-mode indoor">Indoor</span></div></div><div><h3 class="ws-block-title">Light, Emotion &amp; Post-processing</h3><p class="ws-block-desc">A hands-on session exploring how light shapes mood. We cover Vasco's editing philosophy: minimal intervention, maximum honesty.</p><div class="ws-discussion"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>Discussion: <em>When does editing enhance a photo — and when does it betray the moment?</em></div></div></div>
+        <div class="ws-block"><div class="ws-block-left"><div class="ws-block-header"><span class="ws-time">15:15 – 17:15</span><span class="ws-mode outdoor">Outdoor</span></div></div><div><h3 class="ws-block-title">Street Walk II — Golden Hour &amp; Portraits</h3><p class="ws-block-desc">The afternoon light changes everything. This walk focuses on portraits and human connection — approaching strangers, building trust in seconds, capturing the unguarded moment.</p><div class="ws-discussion"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>Discussion: <em>How did it feel to photograph a stranger?</em></div></div></div>
+        <div class="ws-block"><div class="ws-block-left"><div class="ws-block-header"><span class="ws-time">17:30 – 18:00</span><span class="ws-mode indoor">Indoor</span></div></div><div><h3 class="ws-block-title">Final Presentation &amp; Feedback</h3><p class="ws-block-desc">Each participant presents their one image of the day — the one that surprised them most. Vasco gives individual written feedback for every participant to take home.</p><div class="ws-discussion"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>Discussion: <em>What did today change in how you see?</em></div></div></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="contact">
+  <div class="contact-inner">
+    <span class="section-num">05</span>
+    <p class="section-label">Contact</p>
+    <h2 class="section-title">Let's create something together.</h2>
+    <p class="section-body">Available projects. Based in Portugal — open to travel worldwide.</p>
+    <div class="social-links">
+      <a href="http://instagram.com/vascocp" target="_blank" class="social-link"><svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/></svg>Instagram</a>
+      <a href="https://linkedin.com/in/vascocp" target="_blank" class="social-link"><svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.79-1.75-1.764s.784-1.764 1.75-1.764 1.75.79 1.75 1.764-.783 1.764-1.75 1.764zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z"/></svg>LinkedIn</a>
+      <a href="mailto:mail@vascopereira.com" class="social-link"><svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M20 4H4c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z"/></svg>Email</a>
+      <a href="https://x.com/vascocp" target="_blank" class="social-link"><svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg>Twitter / X</a>
+    </div>
+  </div>
+</section>
+
+<div class="lightbox" id="lightbox">
+  <button class="lightbox-close" id="lightboxClose">✕</button>
+  <img class="lightbox-img" id="lightboxImg" src="" alt="" />
+  <p class="lightbox-caption" id="lightboxCaption"></p>
+</div>
+
+<footer>
+  <p>© 2026 Vasco Pereira · All rights reserved · vascopereira.com</p>
+  <p>Swiss / Bauhaus</p>
+</footer>
+
+<script>
+  const quotes={all:'"Every photograph is a certificate of presence."',iceland:'"Ice, fire, silence — Iceland doesn\'t whisper, it overwhelms."',chicago:'"Film doesn\'t forgive. That\'s what makes it honest."',landscapes:'"The earth has music for those who listen."',weddings:'"Love is not posed. It just happens — and I\'m there to catch it."',family:'"Family is not an important thing. It\'s everything."',stage:'"Music is what feelings sound like. I just show you the face of that sound."',fineart:'"Art is not what you see, but what you make others see."',motion:'"In movement, there is truth. Stillness is just a pause between stories."',kids:'"Children don\'t pose. They just are — and that\'s everything."'};
+  const quoteEl=document.getElementById('portfolioQuoteText');
+  function setQuote(f){quoteEl.classList.add('fade-out');setTimeout(()=>{quoteEl.textContent=quotes[f]||quotes.all;quoteEl.classList.remove('fade-out');},300);}
+  document.querySelectorAll('.cat-pill').forEach(pill=>{pill.addEventListener('click',()=>{document.querySelectorAll('.cat-pill').forEach(p=>p.classList.remove('active'));pill.classList.add('active');const f=pill.dataset.filter;setQuote(f);document.querySelectorAll('.grid-item').forEach(item=>{if(f==='all'||item.dataset.cat===f){item.classList.remove('hidden');if(item.classList.contains('grid-wide'))item.style.gridColumn=(f==='all'||f==='iceland')?'span 2':'';}else item.classList.add('hidden');});});});
+  const lb=document.getElementById('lightbox'),lbImg=document.getElementById('lightboxImg'),lbCap=document.getElementById('lightboxCaption'),lbClose=document.getElementById('lightboxClose');
+  document.querySelectorAll('.grid-item').forEach(item=>{item.addEventListener('click',()=>{const img=item.querySelector('.grid-photo'),title=item.querySelector('.grid-item-label h3');if(!img)return;lbImg.src=img.src;lbImg.alt=img.alt;lbCap.textContent=title?title.textContent:'';lb.classList.add('open');document.body.style.overflow='hidden';});});
+  function closeLb(){lb.classList.remove('open');document.body.style.overflow='';lbImg.src='';}
+  lbClose.addEventListener('click',e=>{e.stopPropagation();closeLb();});lb.addEventListener('click',closeLb);lbImg.addEventListener('click',e=>e.stopPropagation());document.addEventListener('keydown',e=>{if(e.key==='Escape')closeLb();});
+  const wsT=document.getElementById('wsToggle'),wsP=document.getElementById('wsProgramme'),wsC=document.getElementById('wsChevron');
+  wsT.addEventListener('click',()=>{const o=wsP.classList.toggle('open');wsC.style.transform=o?'rotate(180deg)':'';wsT.setAttribute('aria-expanded',o);wsT.childNodes[0].textContent=o?'Hide programme':'See the programme';});
+</script>
+</body>
+</html>
