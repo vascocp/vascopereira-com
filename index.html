@@ -356,6 +356,9 @@
       padding: 6px 14px; border-radius: 980px;
       border: 1px solid var(--border); color: var(--muted);
     }
+    .ws-tag--alert {
+      background: rgba(220, 60, 60, 0.12); border-color: rgba(220, 60, 60, 0.35); color: rgba(220, 60, 60, 0.85);
+    }
     .ws-toggle {
       display: inline-flex; align-items: center;
       cursor: pointer; border: none; background: transparent;
@@ -683,7 +686,7 @@
         <span class="ws-tag">Max 8 people</span>
         <span class="ws-tag">All levels</span>
         <span class="ws-tag">Lisbon</span>
-        <span class="ws-tag">No dates available now</span>
+        <span class="ws-tag ws-tag--alert">No dates available now</span>
       </div>
       <div style="display:flex;gap:12px;justify-content:center;flex-wrap:wrap;">
         <button class="btn-ghost ws-toggle" id="wsToggle" aria-expanded="false">
