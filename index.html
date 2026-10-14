@@ -1079,23 +1079,30 @@
     }, 300);
   }
 
-  // Category filter
+  // Category filter — "All" shows only the first photo of each category
+  const seenCats = new Set();
+  document.querySelectorAll('.grid-item').forEach(item => {
+    if (!seenCats.has(item.dataset.cat)) { seenCats.add(item.dataset.cat); item.dataset.featured = ''; }
+  });
+
+  function applyFilter(filter) {
+    document.querySelectorAll('.grid-item').forEach(item => {
+      const show = filter === 'all' ? 'featured' in item.dataset : item.dataset.cat === filter;
+      item.classList.toggle('hidden', !show);
+      if (show && item.classList.contains('grid-wide')) {
+        item.style.gridColumn = (filter === 'all' || filter === 'iceland') ? 'span 2' : '';
+      }
+    });
+  }
+  applyFilter('all');
+
   document.querySelectorAll('.cat-pill').forEach(pill => {
     pill.addEventListener('click', () => {
       document.querySelectorAll('.cat-pill').forEach(p => p.classList.remove('active'));
       pill.classList.add('active');
       const filter = pill.dataset.filter;
       setQuote(filter);
-      document.querySelectorAll('.grid-item').forEach(item => {
-        if (filter === 'all' || item.dataset.cat === filter) {
-          item.classList.remove('hidden');
-          if (item.classList.contains('grid-wide')) {
-            item.style.gridColumn = (filter === 'all' || filter === 'iceland') ? 'span 2' : '';
-          }
-        } else {
-          item.classList.add('hidden');
-        }
-      });
+      applyFilter(filter);
     });
   });
 
